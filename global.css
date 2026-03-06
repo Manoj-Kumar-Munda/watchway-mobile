@@ -1,2 +1,63 @@
 @import "tailwindcss";
 @import "uniwind";
+
+/* ─── Design Tokens ──────────────────────────────────────────────────────────
+ * Semantic color variables used throughout the app.
+ * These are the single source of truth for colors.
+ *
+ * Token          | Purpose
+ * ─────────────────────────────────────────────────────
+ * --primary      | Brand / interactive action color
+ * --background   | Page / screen background
+ * --surface      | Card, modal, elevated surface
+ * --foreground   | Primary text
+ * --muted        | Secondary / subdued text
+ * --subtle       | Subtle backgrounds (inputs, chips)
+ * --border       | Dividers and borders
+ * --overlay      | Modal backdrop
+ * --accent       | Soft accent background (icon wells, highlights)
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+/* Light mode (default) */
+:root {
+  --primary: #e53935;
+  --background: #ffffff;
+  --surface: #ffffff;
+  --foreground: #11181c;
+  --muted: #687076;
+  --subtle: #f3f4f6;
+  --border: #e5e7eb;
+  --overlay: rgb(0 0 0 / 50%);
+  --accent: #fef2f2;
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #e53935;
+    --background: #151718;
+    --surface: #1d2125;
+    --foreground: #ecedee;
+    --muted: #9ba1a6;
+    --subtle: #252a2e;
+    --border: #252a2e;
+    --overlay: rgb(0 0 0 / 60%);
+    --accent: #2c1a1a;
+  }
+}
+
+/* ─── Tailwind Color Utilities ───────────────────────────────────────────────
+ * Maps CSS variables to Tailwind utility classes, e.g.:
+ *   bg-primary, text-foreground, border-border, bg-surface, etc.
+ * ─────────────────────────────────────────────────────────────────────────── */
+@theme inline {
+  --color-primary: var(--primary);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-border: var(--border);
+  --color-overlay: var(--overlay);
+  --color-accent: var(--accent);
+}
