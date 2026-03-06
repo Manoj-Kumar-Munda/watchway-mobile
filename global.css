@@ -60,4 +60,13 @@
   --color-border: var(--border);
   --color-overlay: var(--overlay);
   --color-accent: var(--accent);
+
+  --font-inter: "Inter_400Regular";
+  --font-inter-medium: "Inter_500Medium";
+  --font-inter-semibold: "Inter_600SemiBold";
+  --font-inter-bold: "Inter_700Bold";
+  --font-oswald: "Oswald_400Regular";
+  --font-oswald-medium: "Oswald_500Medium";
+  --font-oswald-semibold: "Oswald_600SemiBold";
+  --font-oswald-bold: "Oswald_700Bold";
 }

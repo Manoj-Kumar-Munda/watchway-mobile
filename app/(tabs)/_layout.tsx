@@ -1,7 +1,8 @@
+import Header from "@/components/header";
 import { useAppTheme } from "@/hooks/use-app-theme";
 import { Ionicons } from "@expo/vector-icons";
-import { Tabs, useRouter } from "expo-router";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { Tabs, useRouter } from "expo-router";
 
 const Layout = () => {
   const router = useRouter();
@@ -10,7 +11,8 @@ const Layout = () => {
   return (
     <Tabs
       screenOptions={{
-        headerShown: false,
+        header: () => <Header />,
+        headerShown: true,
         sceneStyle: { backgroundColor: colors.background },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.muted,
@@ -52,12 +54,12 @@ const Layout = () => {
       />
 
       <Tabs.Screen
-        name="playlist"
+        name="subscriptions"
         options={{
-          title: "Playlist",
+          title: "Subscriptions",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
-              name="playlist-music"
+              name="youtube-subscription"
               size={size}
               color={color}
             />
