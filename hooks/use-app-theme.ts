@@ -1,4 +1,4 @@
-import { Colors, ThemeTokens, type AppColorScheme } from "@/constants/theme";
+import { Colors, ThemeTokens, type AppColorScheme } from "@/config/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import {
   DarkTheme,
