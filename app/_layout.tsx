@@ -12,6 +12,7 @@ import {
   Oswald_700Bold,
 } from "@expo-google-fonts/oswald";
 import { ThemeProvider } from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -20,6 +21,16 @@ import { StatusBar } from "react-native";
 import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 30 * 1000,
+      gcTime: 5 * 60 * 1000,
+      retry: 2,
+    },
+  },
+});
 
 export default function RootLayout() {
   const { colors, navigationTheme, statusBarStyle } = useAppTheme();
@@ -46,19 +57,22 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={navigationTheme}>
-      <StatusBar
-        barStyle={statusBarStyle}
-        backgroundColor={colors.background}
-      />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: colors.background },
-        }}
-      >
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider value={navigationTheme}>
+        <StatusBar
+          barStyle={statusBarStyle}
+          backgroundColor={colors.background}
+        />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: colors.background },
+          }}
+        >
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
