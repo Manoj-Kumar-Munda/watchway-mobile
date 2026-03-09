@@ -1,3 +1,4 @@
+import AuthProvider from "@/components/auth-provider";
 import { useAppTheme } from "@/hooks/use-app-theme";
 import {
   Inter_400Regular,
@@ -63,15 +64,17 @@ export default function RootLayout() {
           barStyle={statusBarStyle}
           backgroundColor={colors.background}
         />
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: colors.background },
-          }}
-        >
-          <Stack.Screen name="(auth)" />
-          <Stack.Screen name="(tabs)" />
-        </Stack>
+        <AuthProvider>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: colors.background },
+            }}
+          >
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="(tabs)" />
+          </Stack>
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
