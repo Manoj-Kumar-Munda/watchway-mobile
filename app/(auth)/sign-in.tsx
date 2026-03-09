@@ -39,7 +39,7 @@ export default function SignInScreen() {
       const response = await mutateAsync(data);
       const { loggedInUser, accessToken, refreshToken } = response.data.data;
       await authLogin(loggedInUser, accessToken, refreshToken);
-      router.replace("/(tabs)");
+      router.replace("/(tabs)/home");
     } catch (error: any) {
       console.error(
         "Login failed:",
