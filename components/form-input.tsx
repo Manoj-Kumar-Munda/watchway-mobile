@@ -37,16 +37,16 @@ export default function FormInput<T extends FieldValues>({
       name={name}
       render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
         <View className="mb-4">
-          <Text className="font-inter-medium text-sm text-foreground mb-1.5">
+          <Text className="font-inter-medium text-sm text-black mb-1.5 dark:text-foreground">
             {label}
           </Text>
           <View
-            className={`flex-row items-center rounded-xl px-4 h-12 bg-subtle border ${
+            className={`flex-row items-center rounded-xl px-4 h-12 dark:bg-subtle border ${
               error ? "border-primary" : "border-border"
             }`}
           >
             <TextInput
-              className="flex-1 text-foreground font-inter text-base h-full"
+              className="flex-1 text-neutral-800 dark:text-foreground font-inter text-base h-full"
               placeholder={placeholder}
               placeholderTextColor={colors.muted}
               value={value}
