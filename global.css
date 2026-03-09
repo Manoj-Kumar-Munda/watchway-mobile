@@ -69,4 +69,5 @@
   --font-oswald-medium: "Oswald_500Medium";
   --font-oswald-semibold: "Oswald_600SemiBold";
   --font-oswald-bold: "Oswald_700Bold";
+  --text-2xs: 0.625rem;
 }
