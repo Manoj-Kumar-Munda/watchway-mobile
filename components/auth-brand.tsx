@@ -13,11 +13,11 @@ export default function AuthBrand({ subtitle }: AuthBrandProps) {
     <View className="items-center mb-10">
       <View className="flex-row items-center gap-2 mb-2">
         <MaterialIcons name="ondemand-video" size={32} color={colors.primary} />
-        <Text className="font-oswald-bold text-3xl text-foreground">
+        <Text className="font-oswald-bold text-3xl text-neutral-800 dark:text-foreground">
           Watchway
         </Text>
       </View>
-      <Text className="font-inter text-muted text-sm">{subtitle}</Text>
+      <Text className="font-inter  text-neutral-600  dark:text-muted text-sm">{subtitle}</Text>
     </View>
   );
 }
