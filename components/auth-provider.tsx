@@ -1,6 +1,7 @@
+import { ROUTE_CONFIG } from "@/config/routes";
 import { useCurrentUser } from "@/services/auth-service";
 import { useAuthStore } from "@/store/auth-store";
-import { useRouter, useSegments } from "expo-router";
+import { usePathname, useRouter, useSegments } from "expo-router";
 import { useEffect, type PropsWithChildren } from "react";
 import { useShallow } from "zustand/react/shallow";
 
@@ -8,7 +9,10 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   const router = useRouter();
   const segments = useSegments();
   const rootSegment = segments[0];
-  const inAuthGroup = rootSegment === "(auth)";
+  const inAuthGroup = rootSegment === ROUTE_CONFIG.authGroup;
+  
+  const currentPath = usePathname();
+  const isPublicRoute = ROUTE_CONFIG.publicRoutes.includes(currentPath);
 
   const { hasHydrated, isAuthenticated, accessToken, setUser, logout } =
     useAuthStore(
@@ -42,7 +46,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
       return;
     }
 
-    if (!isAuthenticated && !inAuthGroup) {
+    if (!isAuthenticated && !inAuthGroup && !isPublicRoute) {
       router.replace("/(auth)/sign-in");
       return;
     }
@@ -50,7 +54,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     if (isAuthenticated && inAuthGroup) {
       router.replace("/(tabs)/home");
     }
-  }, [hasHydrated, inAuthGroup, isAuthenticated, router]);
+  }, [hasHydrated, inAuthGroup, isAuthenticated, isPublicRoute, router]);
 
   if (!hasHydrated) {
     return null;
