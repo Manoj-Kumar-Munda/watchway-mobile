@@ -16,6 +16,7 @@ type AuthState = {
   isAuthenticated: boolean;
   accessToken: string | null;
   refreshToken: string | null;
+  hasHydrated: boolean;
 
   login: (
     user: User,
@@ -27,6 +28,7 @@ type AuthState = {
 
   setUser: (user: User) => void;
   setTokens: (accessToken: string | null, refreshToken: string | null) => void;
+  setHasHydrated: (value: boolean) => void;
 };
 
 export const useAuthStore = create<AuthState>()(
@@ -36,6 +38,7 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       accessToken: null,
       refreshToken: null,
+      hasHydrated: false,
 
       login: async (user, accessToken, refreshToken) => {
         set({ user, isAuthenticated: true, accessToken, refreshToken });
@@ -57,14 +60,19 @@ export const useAuthStore = create<AuthState>()(
           refreshToken,
           isAuthenticated: Boolean(accessToken),
         }),
+      setHasHydrated: (value) => set({ hasHydrated: value }),
     }),
     {
       name: "auth-store",
       storage: createJSONStorage(() => asyncStorageAdapter),
       partialize: (state) => ({
+        user: state.user,
         accessToken: state.accessToken,
         refreshToken: state.refreshToken,
       }),
+      onRehydrateStorage: () => () => {
+        useAuthStore.getState().setHasHydrated(true);
+      },
     },
   ),
 );

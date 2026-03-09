@@ -1,9 +1,9 @@
 import { endpoints } from "@/config/endpoints";
 import apiClient from "@/lib/api-client";
+import { SignInFormData } from "@/lib/validations/auth";
+import { useAuthStore } from "@/store/auth-store";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { ApiResponse, IUser } from "./types";
-import { SignInFormData } from "@/lib/validations/auth";
-
 
 interface LoginResponse {
   accessToken: string;
@@ -16,7 +16,7 @@ export const useLogin = () => {
     mutationFn: (data: SignInFormData) => {
       return apiClient.post<ApiResponse<LoginResponse>>(
         endpoints.auth.login.url,
-        data
+        data,
       );
     },
     onSettled: () => {
@@ -33,6 +33,7 @@ export const useCurrentUser = () => {
     queryFn: () => {
       return apiClient.get<ApiResponse<IUser>>(endpoints.users.currentUser.url);
     },
+
     retry: false,
   });
 };
@@ -40,11 +41,15 @@ export const useCurrentUser = () => {
 export const useRegister = () => {
   return useMutation({
     mutationFn: (data: FormData) => {
-      return apiClient.post<ApiResponse<IUser>>(endpoints.auth.register.url, data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      return apiClient.post<ApiResponse<IUser>>(
+        endpoints.auth.register.url,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         },
-      });
+      );
     },
     onSettled: () => {
       new QueryClient().invalidateQueries({
